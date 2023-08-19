@@ -8,10 +8,8 @@ import top.wecoding.iam.sdk.client.auth.HttpBearerAuth;
 import top.wecoding.iam.sdk.model.Metadata;
 import top.wecoding.iam.sdk.model.UserInfo;
 import top.wecoding.iam.sdk.model.request.CreateUserRequest;
-import top.wecoding.iam.sdk.model.request.UpdateUserRequest;
 import top.wecoding.iam.sdk.model.response.AuthenticationResponse;
 import top.wecoding.iam.sdk.model.response.CreateUserResponse;
-import top.wecoding.iam.sdk.model.response.UpdateUserResponse;
 import top.wecoding.iam.sdk.model.response.UserInfoResponse;
 
 import java.util.UUID;
@@ -45,6 +43,12 @@ public class Quickstart {
 
 			UserApi userApi = new UserApi(client);
 
+			UserInfoResponse currentUserInfo = authenticationApi.currentUserInfo();
+			if (currentUserInfo != null) {
+				UserInfo userInfo = currentUserInfo.getUserInfo();
+				println("get currentUserInfo success. userInfo = " + userInfo);
+			}
+
 			CreateUserRequest createUserReq = CreateUserRequest.builder()
 				.name(name)
 				.email(email)
@@ -60,13 +64,9 @@ public class Quickstart {
 			UserInfoResponse userInfoResponse = userApi.getUserInfo(instanceId);
 			println("get user info success. userinfo = " + userInfoResponse.getUserInfo());
 
-			UpdateUserRequest updateUserReq = UpdateUserRequest.builder()
-				.alias("update-alias")
-				.email("update-email@example.com")
-				.phone("15090908888")
-				.build();
-			UpdateUserResponse updateUserResponse = userApi.updateUser(instanceId, updateUserReq);
-			println("update user info success. response = " + updateUserResponse);
+			userApi.disableUser(userInfo.getMetadata().getInstanceId());
+
+			userApi.enableUser(userInfo.getMetadata().getInstanceId());
 
 			userApi.deleteUser(instanceId);
 			println("delete user success.");

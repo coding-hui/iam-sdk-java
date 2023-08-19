@@ -6,4 +6,11 @@ package top.wecoding.iam.sdk.exception;
  */
 public class AuthenticationException extends RuntimeException {
 
+	public AuthenticationException() {
+	}
+
+	public AuthenticationException(Throwable throwable) {
+		super(throwable);
+	}
+
 }

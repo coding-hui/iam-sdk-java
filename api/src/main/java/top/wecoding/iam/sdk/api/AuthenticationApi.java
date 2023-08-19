@@ -23,6 +23,8 @@ import top.wecoding.iam.sdk.exception.AuthenticationException;
 import top.wecoding.iam.sdk.model.request.AuthenticationRequest;
 import top.wecoding.iam.sdk.model.request.RequestHttpEntity;
 import top.wecoding.iam.sdk.model.response.AuthenticationResponse;
+import top.wecoding.iam.sdk.model.response.RefreshTokenResponse;
+import top.wecoding.iam.sdk.model.response.UserInfoResponse;
 
 /**
  * Authentication related API.
@@ -34,17 +36,23 @@ public class AuthenticationApi {
 
 	private static final String AUTHENTICATE_API = "/api/v1/login";
 
+	private static final String REFRESH_TOKEN_API = "/api/v1/auth/refresh-token";
+
+	private static final String CURRENT_USER_INFO_API = "/api/v1/auth/user-info";
+
+	private static final String REFRESH_TOKEN_HEADER = "RefreshToken";
+
 	private final ApiClient apiClient;
 
 	public AuthenticationApi(ApiClient apiClient) {
 		this.apiClient = apiClient;
 	}
 
-	public AuthenticationResponse authenticate(String username, String password) throws AuthenticationException {
+	public AuthenticationResponse authenticate(String username, String password) {
 		return this.authenticate(new AuthenticationRequest(username, password));
 	}
 
-	public AuthenticationResponse authenticate(AuthenticationRequest request) throws AuthenticationException {
+	public AuthenticationResponse authenticate(AuthenticationRequest request) {
 		final String[] authNames = new String[] {};
 
 		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, request, authNames);
@@ -52,7 +60,35 @@ public class AuthenticationApi {
 			return this.apiClient.post(AUTHENTICATE_API, requestEntity, AuthenticationResponse.class);
 		}
 		catch (Exception ex) {
-			throw new AuthenticationException();
+			throw new AuthenticationException(ex);
+		}
+	}
+
+	public RefreshTokenResponse refreshToken(String refreshToken) {
+		final String[] authNames = new String[] {};
+
+		Header header = Header.newInstance();
+
+		header.addParam(REFRESH_TOKEN_HEADER, refreshToken);
+
+		RequestHttpEntity requestEntity = new RequestHttpEntity(header, Query.EMPTY, authNames);
+		try {
+			return this.apiClient.get(REFRESH_TOKEN_API, requestEntity, RefreshTokenResponse.class);
+		}
+		catch (Exception ex) {
+			throw new AuthenticationException(ex);
+		}
+	}
+
+	public UserInfoResponse currentUserInfo() {
+		final String[] authNames = new String[] { "basic", "bearer" };
+
+		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, authNames);
+		try {
+			return this.apiClient.get(CURRENT_USER_INFO_API, requestEntity, UserInfoResponse.class);
+		}
+		catch (Exception ex) {
+			throw new AuthenticationException(ex);
 		}
 	}
 

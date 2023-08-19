@@ -49,7 +49,8 @@ public class UserApi {
 		String api = Strings.format("{}/{}", API_PREFIX, user);
 
 		try {
-			return this.apiClient.put(api, requestEntity, UpdateUserResponse.class);
+			UpdateUserResponse put = this.apiClient.put(api, requestEntity, UpdateUserResponse.class);
+			return put;
 		}
 		catch (Exception ex) {
 			throw new ApiException(ex);
@@ -92,7 +93,7 @@ public class UserApi {
 	public void disableUser(String userId) {
 		final String[] authNames = new String[] { "basic", "bearer" };
 
-		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, userId, authNames);
+		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, authNames);
 
 		String api = Strings.format("{}/{}/disable", API_PREFIX, userId);
 
@@ -107,7 +108,7 @@ public class UserApi {
 	public void enableUser(String userId) {
 		final String[] authNames = new String[] { "basic", "bearer" };
 
-		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, userId, authNames);
+		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, authNames);
 
 		String api = Strings.format("{}/{}/enable", API_PREFIX, userId);
 

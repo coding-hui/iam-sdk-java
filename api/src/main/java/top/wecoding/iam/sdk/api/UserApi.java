@@ -89,4 +89,34 @@ public class UserApi {
 		}
 	}
 
+	public void disableUser(String userId) {
+		final String[] authNames = new String[] { "basic", "bearer" };
+
+		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, userId, authNames);
+
+		String api = Strings.format("{}/{}/disable", API_PREFIX, userId);
+
+		try {
+			this.apiClient.get(api, requestEntity, ApiResult.class);
+		}
+		catch (Exception ex) {
+			throw new ApiException(ex);
+		}
+	}
+
+	public void enableUser(String userId) {
+		final String[] authNames = new String[] { "basic", "bearer" };
+
+		RequestHttpEntity requestEntity = new RequestHttpEntity(Header.EMPTY, Query.EMPTY, userId, authNames);
+
+		String api = Strings.format("{}/{}/enable", API_PREFIX, userId);
+
+		try {
+			this.apiClient.get(api, requestEntity, ApiResult.class);
+		}
+		catch (Exception ex) {
+			throw new ApiException(ex);
+		}
+	}
+
 }

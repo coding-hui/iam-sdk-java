@@ -49,8 +49,7 @@ public class UserApi {
 		String api = Strings.format("{}/{}", API_PREFIX, user);
 
 		try {
-			UpdateUserResponse put = this.apiClient.put(api, requestEntity, UpdateUserResponse.class);
-			return put;
+			return this.apiClient.put(api, requestEntity, UpdateUserResponse.class);
 		}
 		catch (Exception ex) {
 			throw new ApiException(ex);

@@ -8,8 +8,10 @@ import top.wecoding.iam.sdk.client.auth.HttpBearerAuth;
 import top.wecoding.iam.sdk.model.Metadata;
 import top.wecoding.iam.sdk.model.UserInfo;
 import top.wecoding.iam.sdk.model.request.CreateUserRequest;
+import top.wecoding.iam.sdk.model.request.UpdateUserRequest;
 import top.wecoding.iam.sdk.model.response.AuthenticationResponse;
 import top.wecoding.iam.sdk.model.response.CreateUserResponse;
+import top.wecoding.iam.sdk.model.response.UpdateUserResponse;
 import top.wecoding.iam.sdk.model.response.UserInfoResponse;
 
 import java.util.UUID;
@@ -61,8 +63,17 @@ public class Quickstart {
 			Metadata metadata = userInfo.getMetadata();
 			String instanceId = metadata.getInstanceId();
 
+			UpdateUserRequest updateReq = UpdateUserRequest.builder()
+				.phone("19088889999")
+				.email(email)
+				.alias("update-quickstart")
+				.password(password)
+				.build();
+			UpdateUserResponse updateUserResponse = userApi.updateUser(instanceId, updateReq);
+			println("update user success. resp = " + updateUserResponse.getMsg());
+
 			UserInfoResponse userInfoResponse = userApi.getUserInfo(instanceId);
-			println("get user info success. userinfo = " + userInfoResponse.getUserInfo());
+			println("get user info success. resp = " + userInfoResponse.getMsg());
 
 			userApi.disableUser(userInfo.getMetadata().getInstanceId());
 

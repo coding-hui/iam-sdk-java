@@ -1,5 +1,7 @@
 package top.wecoding.iam.sdk.client.param;
 
+import lombok.Getter;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -17,9 +19,10 @@ public class Query {
 
 	private static final String DEFAULT_ENC = "UTF-8";
 
-	private boolean isEmpty = true;
-
+	@Getter
 	private final Map<String, Object> params;
+
+	private boolean isEmpty = true;
 
 	public Query() {
 		params = new LinkedHashMap<>();
@@ -70,10 +73,6 @@ public class Query {
 		for (int i = 0; i < list.size();) {
 			addParam(list.get(i++), list.get(i++));
 		}
-	}
-
-	public Map<String, Object> getParams() {
-		return params;
 	}
 
 	/**

@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>top.wecoding.iam.sdk</groupId>
-        <artifactId>iam-sdk-parent</artifactId>
+        <groupId>top.wecoding.sdk</groupId>
+        <artifactId>wecoding-sdk-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>iam-sdk-api</artifactId>
-    <name>IAM Java SDK :: API</name>
+    <artifactId>wecoding-sdk-api</artifactId>
+    <name>WeCoding Java SDK :: API</name>
     <packaging>jar</packaging>
 
     <dependencies>

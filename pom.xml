@@ -10,13 +10,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>top.wecoding.iam.sdk</groupId>
-    <artifactId>iam-sdk-parent</artifactId>
+    <groupId>top.wecoding.sdk</groupId>
+    <artifactId>wecoding-sdk-parent</artifactId>
     <version>0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>IAM Java SDK</name>
-    <description>IAM SDK for Java</description>
-    <url>https://github.com/coding-hui/iam-sdk-java</url>
+    <name>WeCoding Java SDK</name>
+    <description>WeCoding SDK for Java</description>
+    <url>https://github.com/coding-hui/wecoding-sdk-java</url>
     <inceptionYear>2023</inceptionYear>
 
     <modules>
@@ -28,7 +28,6 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <httpcomponents.client5.version>5.2.1</httpcomponents.client5.version>
     </properties>
 
     <dependencyManagement>
@@ -36,16 +35,9 @@
 
             <!-- Inter project dependencies -->
             <dependency>
-                <groupId>top.wecoding.iam.sdk</groupId>
-                <artifactId>iam-sdk-api</artifactId>
+                <groupId>top.wecoding.sdk</groupId>
+                <artifactId>wecoding-sdk-api</artifactId>
                 <version>0.8-SNAPSHOT</version>
-            </dependency>
-
-            <!-- Http client -->
-            <dependency>
-                <groupId>org.apache.httpcomponents.client5</groupId>
-                <artifactId>httpclient5</artifactId>
-                <version>${httpcomponents.client5.version}</version>
             </dependency>
 
         </dependencies>

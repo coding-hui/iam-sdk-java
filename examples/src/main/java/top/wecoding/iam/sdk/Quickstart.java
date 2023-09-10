@@ -31,8 +31,13 @@ public class Quickstart {
 		ApiClient client;
 
 		try {
+			String basePath = "http://localhost:8001";
+			if (args.length > 0 && !args[0].isEmpty()) {
+				basePath = args[0];
+			}
+
 			client = Clients.builder().build();
-			client.setBasePath("http://localhost:8001");
+			client.setBasePath(basePath);
 
 			AuthenticationApi authenticationApi = new AuthenticationApi(client);
 
